@@ -1,0 +1,224 @@
+/* ============================================================
+   Rishabh Singh — Personal Site
+   Simple, clean, dark-ish theme with a blue accent.
+   Edit colors below to match your taste.
+   ============================================================ */
+
+:root {
+    /* ---- Palette: tweak these to restyle the whole site ---- */
+    --bg:        #0d1117;   /* page background (GitHub-dark inspired) */
+    --bg-elev:   #161b22;   /* cards / sections */
+    --border:    #30363d;   /* subtle borders */
+    --fg:        #e6edf3;   /* primary text */
+    --fg-muted:  #8b949e;   /* secondary text */
+    --accent:    #58a6ff;   /* blue accent — links, buttons */
+    --accent-2:  #7ee787;   /* green for "live" / success hints */
+    --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    --max-w:     720px;
+}
+
+/* ---- Reset & base ---- */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: var(--font-sans);
+    line-height: 1.65;
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* ---- Layout ---- */
+.container {
+    max-width: var(--max-w);
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+/* ---- Hero ---- */
+.hero {
+    padding: 80px 0 48px;
+    text-align: center;
+}
+
+.tag {
+    display: inline-block;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+    background: rgba(88, 166, 255, 0.10);
+    border: 1px solid rgba(88, 166, 255, 0.25);
+    border-radius: 999px;
+    padding: 4px 14px;
+    margin-bottom: 20px;
+}
+
+h1 {
+    font-size: clamp(2.2rem, 5vw, 3.2rem);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    margin-bottom: 8px;
+    background: linear-gradient(135deg, var(--fg) 0%, var(--accent) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.subtitle {
+    font-size: 1.15rem;
+    color: var(--fg-muted);
+    margin-bottom: 32px;
+}
+
+.cta {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+/* ---- Buttons ---- */
+.btn {
+    display: inline-block;
+    padding: 10px 22px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-decoration: none;
+    transition: all 0.15s ease;
+    border: 1px solid transparent;
+    cursor: pointer;
+}
+
+.btn-primary {
+    background: var(--accent);
+    color: #0d1117;
+    border-color: var(--accent);
+}
+.btn-primary:hover {
+    opacity: 0.88;
+    transform: translateY(-1px);
+}
+
+.btn-secondary {
+    background: transparent;
+    color: var(--fg);
+    border-color: var(--border);
+}
+.btn-secondary:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+}
+
+/* ---- Sections ---- */
+.section {
+    padding: 48px 0;
+    border-top: 1px solid var(--border);
+}
+
+.section h2 {
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+    color: var(--fg);
+}
+
+/* ---- About ---- */
+.section > p {
+    color: var(--fg-muted);
+    margin-bottom: 14px;
+}
+
+.section > p:last-child { margin-bottom: 0; }
+
+.muted { color: var(--fg-muted); opacity: 0.7; }
+
+/* ---- Blog placeholder ---- */
+.blog-empty {
+    background: var(--bg-elev);
+    border: 1px dashed var(--border);
+    border-radius: 12px;
+    padding: 32px;
+    text-align: center;
+    color: var(--fg-muted);
+}
+
+.blog-empty p { margin-bottom: 8px; }
+.blog-empty p:last-child { margin-bottom: 0; }
+
+/* ---- Connect cards ---- */
+.connect-links {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.link-card {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background: var(--bg-elev);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 18px;
+    text-decoration: none;
+    color: var(--fg);
+    transition: all 0.15s ease;
+}
+
+.link-card:hover {
+    border-color: var(--accent);
+    transform: translateX(4px);
+}
+
+.link-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 0.85rem;
+    background: rgba(88, 166, 255, 0.12);
+    color: var(--accent);
+    flex-shrink: 0;
+}
+
+.link-label {
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+.link-url {
+    margin-left: auto;
+    font-size: 0.82rem;
+    color: var(--fg-muted);
+    font-family: "SF Mono", "Consolas", "Roboto Mono", monospace;
+}
+
+/* ---- Footer ---- */
+footer {
+    border-top: 1px solid var(--border);
+    padding: 24px 0;
+    text-align: center;
+    color: var(--fg-muted);
+    font-size: 0.85rem;
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 480px) {
+    .hero { padding: 48px 0 32px; }
+    .cta { flex-direction: column; align-items: center; }
+    .link-url { display: none; }
+    .container { padding: 0 16px; }
+}

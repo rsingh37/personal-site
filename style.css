@@ -8,12 +8,13 @@
 
 /* ---- Design tokens ---- */
 :root {
+    /* ---- Dark theme (default) ---- */
     --bg:        #0a0d12;
     --bg-2:      #0f131a;
     --bg-elev:   #171c26;
     --bg-card:   #1a1f2b;
     --border:    #252b38;
-    --border-soft: rgba(255,255,255,0.06);
+    --border-soft: rgba(255,255,255,0.07);
     --fg:        #edf1f7;
     --fg-muted:  #8892a4;
     --fg-dim:    #5c6478;
@@ -25,7 +26,36 @@
     --mono:      'JetBrains Mono', 'SF Mono', Consolas, monospace;
     --max-w:     820px;
     --radius:    12px;
-    --transition: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --nav-bg:    rgba(10, 13, 18, 0.78);
+}
+
+/* ---- Light theme ---- */
+[data-theme="light"] {
+    --bg:        #f6f7f9;
+    --bg-2:      #ffffff;
+    --bg-elev:   #ffffff;
+    --bg-card:   #f0f2f5;
+    --border:    #dde1e8;
+    --border-soft: rgba(0,0,0,0.07);
+    --fg:        #111418;
+    --fg-muted:  #5c6478;
+    --fg-dim:    #8892a4;
+    --accent:    #0b81ff;
+    --accent-dim: rgba(11,129,255,0.08);
+    --accent-glow: rgba(11,129,255,0.16);
+    --warm:      #e08a00;
+    --nav-bg:    rgba(246,247,249,0.82);
+}
+
+/* ---- Global transitions for smooth theme switch ---- */
+body, .nav, .nav-logo, .nav-links a, .hero-eyebrow, .hero-cta, .btn,
+.fact-card, .stack-card, .blog-empty, .connect-card, footer p, .footer-tech,
+.bg-grid, .bg-glow, .divider, .divider-label {
+    transition: background-color var(--transition),
+                color var(--transition),
+                border-color var(--transition),
+                box-shadow var(--transition);
 }
 
 /* ---- Reset ---- */
@@ -93,7 +123,7 @@ body {
     align-items: center;
     justify-content: space-between;
     padding: 20px 0;
-    background: rgba(10, 13, 18, 0.75);
+    background: var(--nav-bg);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--border-soft);
@@ -596,6 +626,100 @@ footer p {
 
 .dot { color: var(--border); }
 
+/* ---- Theme toggle (lamp) ---- */
+.theme-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    border: 1px solid var(--border-soft);
+    border-radius: 12px;
+    background: var(--bg-elev);
+    color: var(--fg-muted);
+    cursor: pointer;
+    transition: all var(--transition);
+    flex-shrink: 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.theme-toggle:hover {
+    border-color: rgba(110,231,255,0.3);
+    color: var(--accent);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+}
+
+.theme-toggle-track {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Base lamp icon — always visible as the "bulb" centerpiece */
+.theme-toggle-bulb {
+    position: absolute;
+    color: var(--accent);
+    opacity: 0.5;
+    z-index: 1;
+    transition: all var(--transition);
+    filter: drop-shadow(0 0 4px var(--accent-glow));
+}
+
+/* Sun rays — visible in light mode, hidden in dark */
+.theme-toggle-icon.sun {
+    position: absolute;
+    color: var(--warm);
+    opacity: 0;
+    z-index: 2;
+    transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+    filter: drop-shadow(0 0 6px var(--accent-glow));
+}
+
+/* Moon — visible in dark mode, hidden in light */
+.theme-toggle-icon.moon {
+    position: absolute;
+    color: #8b9dc0;
+    opacity: 1;
+    z-index: 2;
+    transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+    filter: drop-shadow(0 0 4px rgba(139,157,192,0.3));
+}
+
+/* Light mode: bulb brighter, sun visible, moon hidden */
+[data-theme="light"] .theme-toggle {
+    border-color: rgba(255,200,50,0.25);
+    color: var(--warm);
+}
+
+[data-theme="light"] .theme-toggle-track {
+    transform: rotate(12deg);
+}
+
+[data-theme="light"] .theme-toggle-bulb {
+    opacity: 1;
+    color: var(--warm);
+    filter: drop-shadow(0 0 8px rgba(240,180,41,0.5));
+    transform: scale(1.1);
+}
+
+[data-theme="light"] .theme-toggle-icon.sun {
+    opacity: 1;
+    color: var(--warm);
+    filter: drop-shadow(0 0 8px rgba(240,180,41,0.5));
+    transform: scale(1.1) rotate(8deg);
+}
+
+[data-theme="light"] .theme-toggle-icon.moon {
+    opacity: 0;
+    transform: scale(0.5) translateY(-6px);
+}
+
 /* ---- Responsive ---- */
 @media (max-width: 768px) {
     .about-grid {
@@ -618,6 +742,13 @@ footer p {
     .stack-grid {
         grid-template-columns: repeat(2, 1fr);
     }
+}
+
+@media (max-width: 640px) {
+    .theme-toggle { width: 38px; height: 38px; }
+    .theme-toggle-icon.sun { width: 16px; height: 16px; }
+    .theme-toggle-icon.moon { width: 14px; height: 14px; }
+    .theme-toggle-bulb { width: 13px; height: 13px; }
 }
 
 @media (max-width: 480px) {

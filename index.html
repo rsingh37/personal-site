@@ -262,20 +262,21 @@
             <!-- PIPELINE (new — small preview of what's coming) -->
             <div class="pipeline-section">
                 <div class="section-title" style="font-size:1.1rem; margin-bottom:12px;">In the pipeline</div>
-                <ul class="pipeline-list">
+                <button class="pipeline-toggle-btn" id="pipelineToggle" onclick="togglePipeline()">Show what's coming ↓</button>
+                <ul class="pipeline-list" id="pipelineList" style="display:none;">
                     <li class="pipeline-item reveal">
                         <span class="pipeline-dot"></span>
-                        A real blog post — about something I actually learned the hard way
+                        <span class="pipeline-text">A real blog post — about something I actually learned the hard way</span>
                         <span class="pipeline-status">soon</span>
                     </li>
                     <li class="pipeline-item reveal reveal-delay-1">
                         <span class="pipeline-dot"></span>
-                        Project notes — the messy middle of building something
+                        <span class="pipeline-text">Project notes — the messy middle of building something</span>
                         <span class="pipeline-status">sketching</span>
                     </li>
                     <li class="pipeline-item reveal reveal-delay-2">
                         <span class="pipeline-dot"></span>
-                        This website's own source — because why not
+                        <span class="pipeline-text">This website's own source — because why not</span>
                         <span class="pipeline-status">here</span>
                     </li>
                 </ul>
@@ -589,6 +590,16 @@
                     });
                 }
             })();
+
+            // ---- PIPELINE TOGGLE ----
+            function togglePipeline() {
+                var list = document.getElementById('pipelineList');
+                var btn = document.getElementById('pipelineToggle');
+                if (!list || !btn) return;
+                var hidden = list.style.display === 'none' || list.style.display === '';
+                list.style.display = hidden ? 'flex' : 'none';
+                btn.textContent = hidden ? 'Hide what\\'s coming ↑' : 'Show what\\'s coming ↓';
+            }
         })();
     </script>
 </body>

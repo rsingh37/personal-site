@@ -9,6 +9,89 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🥸</text></svg>">
+    <!-- THEME TOGGLE SCRIPT (runs in <head> to prevent flash of wrong theme) -->
+    <script>
+        (function () {
+            var STORAGE_KEY = 'theme-preference';
+            var html = document.documentElement;
+            var saved = localStorage.getItem(STORAGE_KEY);
+            var osDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+            var theme = saved || (osDark ? 'dark' : 'light');
+            html.setAttribute('data-theme', theme);
+            if (window.matchMedia) {
+                window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function (e) {
+                    if (!localStorage.getItem(STORAGE_KEY)) {
+                        html.setAttribute('data-theme', e.matches ? 'dark' : 'light');
+                    }
+                });
+            }
+        })();
+    </script>
+    <script>
+        (function () {
+            var STORAGE_KEY = 'theme-preference';
+            var html = document.documentElement;
+            var toggle = document.getElementById('themeToggle');
+            var sunIcon = toggle && toggle.querySelector('.sun');
+            var lampIcon = toggle && toggle.querySelector('.lamp');
+
+            var saved = localStorage.getItem(STORAGE_KEY);
+            var osDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+            var theme = saved || (osDark ? 'dark' : 'light');
+
+            function applyTheme(t) {
+                html.setAttribute('data-theme', t);
+                if (toggle) {
+                    if (t === 'light') {
+                        if (sunIcon) { sunIcon.style.opacity = '1'; sunIcon.style.transform = 'scale(1.15) rotate(-8deg)'; }
+                        if (lampIcon) { lampIcon.style.opacity = '0.15'; lampIcon.style.transform = 'scale(0.7)'; }
+                    } else {
+                        if (sunIcon) { sunIcon.style.opacity = '0.15'; sunIcon.style.transform = 'scale(0.7)'; }
+                        if (lampIcon) { lampIcon.style.opacity = '1'; lampIcon.style.transform = 'scale(1)'; }
+                        if (lampIcon) { lampIcon.style.stroke = 'var(--warm)'; }
+                    }
+                }
+            }
+
+            // If toggle exists (script in head, button in body — may not exist yet)
+            if (toggle) {
+                applyTheme(theme);
+                toggle.addEventListener('click', function () {
+                    var next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+                    localStorage.setItem(STORAGE_KEY, next);
+                    applyTheme(next);
+                    toggle.style.transform = 'scale(0.92)';
+                    setTimeout(function () { toggle.style.transform = ''; }, 150);
+                });
+            } else {
+                // Fallback: wait for DOM ready
+                applyTheme(theme);
+                document.addEventListener('DOMContentLoaded', function () {
+                    var t = document.getElementById('themeToggle');
+                    if (!t) return;
+                    var s = t.querySelector('.sun');
+                    var l = t.querySelector('.lamp');
+                    toggle = t; sunIcon = s; lampIcon = l;
+                    applyTheme(theme);
+                    t.addEventListener('click', function () {
+                        var next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+                        localStorage.setItem(STORAGE_KEY, next);
+                        applyTheme(next);
+                        t.style.transform = 'scale(0.92)';
+                        setTimeout(function () { t.style.transform = ''; }, 150);
+                    });
+                });
+            }
+
+            if (window.matchMedia) {
+                window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function (e) {
+                    if (!localStorage.getItem(STORAGE_KEY)) {
+                        applyTheme(e.matches ? 'dark' : 'light');
+                    }
+                });
+            }
+        })();
+    </script>
 </head>
 <body>
     <!-- Background glow (decorative) -->
@@ -354,53 +437,6 @@
         </div>
     </footer>
 
-    <!-- THEME TOGGLE SCRIPT -->
-    <script>
-        (function () {
-            var STORAGE_KEY = 'theme-preference';
-            var html = document.documentElement;
-            var toggle = document.getElementById('themeToggle');
-            var sunIcon = toggle.querySelector('.sun');
-            var lampIcon = toggle.querySelector('.lamp');
-
-            var saved = localStorage.getItem(STORAGE_KEY);
-            var osDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-            var theme = saved || (osDark ? 'dark' : 'light');
-
-            function applyTheme(t) {
-                html.setAttribute('data-theme', t);
-                if (t === 'light') {
-                    sunIcon.style.opacity = '1';
-                    sunIcon.style.transform = 'scale(1.15) rotate(-8deg)';
-                    lampIcon.style.opacity = '0.2';
-                    lampIcon.style.transform = 'scale(0.7)';
-                } else {
-                    sunIcon.style.opacity = '0.15';
-                    sunIcon.style.transform = 'scale(0.7)';
-                    lampIcon.style.opacity = '0.95';
-                    lampIcon.style.transform = 'scale(1)';
-                }
-            }
-
-            applyTheme(theme);
-
-            toggle.addEventListener('click', function () {
-                var next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-                localStorage.setItem(STORAGE_KEY, next);
-                applyTheme(next);
-                // micro feedback
-                toggle.style.transform = 'scale(0.92)';
-                setTimeout(function () { toggle.style.transform = ''; }, 150);
-            });
-
-            window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function (e) {
-                if (!localStorage.getItem(STORAGE_KEY)) {
-                    applyTheme(e.matches ? 'dark' : 'light');
-                }
-            });
-        })();
-    </script>
-
     <!-- FEATURES SCRIPT: terminal, entrance animations, stats count-up, easter eggs -->
     <script>
         (function () {
@@ -592,14 +628,14 @@
             })();
 
             // ---- PIPELINE TOGGLE ----
-            function togglePipeline() {
+            window.togglePipeline = function () {
                 var list = document.getElementById('pipelineList');
                 var btn = document.getElementById('pipelineToggle');
                 if (!list || !btn) return;
                 var hidden = list.style.display === 'none' || list.style.display === '';
                 list.style.display = hidden ? 'flex' : 'none';
-                btn.textContent = hidden ? 'Hide what\\'s coming ↑' : 'Show what\\'s coming ↓';
-            }
+                btn.textContent = hidden ? "Hide what's coming ↑" : "Show what's coming ↓";
+            };
         })();
     </script>
 </body>

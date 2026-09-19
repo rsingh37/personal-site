@@ -28,12 +28,14 @@
         })();
     </script>
     <script>
-        (function () {
+        // Theme toggle — runs after DOM is ready so the button exists
+        document.addEventListener('DOMContentLoaded', function () {
             var STORAGE_KEY = 'theme-preference';
             var html = document.documentElement;
             var toggle = document.getElementById('themeToggle');
-            var sunIcon = toggle && toggle.querySelector('.sun');
-            var lampIcon = toggle && toggle.querySelector('.lamp');
+            if (!toggle) return;
+            var sunIcon = toggle.querySelector('.sun');
+            var lampIcon = toggle.querySelector('.lamp');
 
             var saved = localStorage.getItem(STORAGE_KEY);
             var osDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
@@ -41,56 +43,25 @@
 
             function applyTheme(t) {
                 html.setAttribute('data-theme', t);
-                if (toggle) {
-                    if (t === 'light') {
-                        if (sunIcon) { sunIcon.style.opacity = '1'; sunIcon.style.transform = 'scale(1.15) rotate(-8deg)'; }
-                        if (lampIcon) { lampIcon.style.opacity = '0.15'; lampIcon.style.transform = 'scale(0.7)'; }
-                    } else {
-                        if (sunIcon) { sunIcon.style.opacity = '0.15'; sunIcon.style.transform = 'scale(0.7)'; }
-                        if (lampIcon) { lampIcon.style.opacity = '1'; lampIcon.style.transform = 'scale(1)'; }
-                        if (lampIcon) { lampIcon.style.stroke = 'var(--warm)'; }
-                    }
+                if (t === 'light') {
+                    if (sunIcon) { sunIcon.style.opacity = '1'; sunIcon.style.transform = 'scale(1.15) rotate(-8deg)'; }
+                    if (lampIcon) { lampIcon.style.opacity = '0.15'; lampIcon.style.transform = 'scale(0.7)'; }
+                } else {
+                    if (sunIcon) { sunIcon.style.opacity = '0.15'; sunIcon.style.transform = 'scale(0.7)'; }
+                    if (lampIcon) { lampIcon.style.opacity = '1'; lampIcon.style.transform = 'scale(1)'; }
                 }
             }
 
-            // If toggle exists (script in head, button in body — may not exist yet)
-            if (toggle) {
-                applyTheme(theme);
-                toggle.addEventListener('click', function () {
-                    var next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-                    localStorage.setItem(STORAGE_KEY, next);
-                    applyTheme(next);
-                    toggle.style.transform = 'scale(0.92)';
-                    setTimeout(function () { toggle.style.transform = ''; }, 150);
-                });
-            } else {
-                // Fallback: wait for DOM ready
-                applyTheme(theme);
-                document.addEventListener('DOMContentLoaded', function () {
-                    var t = document.getElementById('themeToggle');
-                    if (!t) return;
-                    var s = t.querySelector('.sun');
-                    var l = t.querySelector('.lamp');
-                    toggle = t; sunIcon = s; lampIcon = l;
-                    applyTheme(theme);
-                    t.addEventListener('click', function () {
-                        var next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-                        localStorage.setItem(STORAGE_KEY, next);
-                        applyTheme(next);
-                        t.style.transform = 'scale(0.92)';
-                        setTimeout(function () { t.style.transform = ''; }, 150);
-                    });
-                });
-            }
+            applyTheme(theme);
 
-            if (window.matchMedia) {
-                window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function (e) {
-                    if (!localStorage.getItem(STORAGE_KEY)) {
-                        applyTheme(e.matches ? 'dark' : 'light');
-                    }
-                });
-            }
-        })();
+            toggle.addEventListener('click', function () {
+                var next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+                localStorage.setItem(STORAGE_KEY, next);
+                applyTheme(next);
+                toggle.style.transform = 'scale(0.92)';
+                setTimeout(function () { toggle.style.transform = ''; }, 150);
+            });
+        });
     </script>
 </head>
 <body>
@@ -100,11 +71,11 @@
 
     <!-- THEME TOGGLE (lamp) -->
     <button class="theme-toggle" id="themeToggle" aria-label="Toggle light/dark mode" title="Toggle theme">
-        <svg class="theme-toggle-icon sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--warm)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg class="theme-toggle-icon sun" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--warm)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="12" cy="12" r="4"/>
             <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M19.07 4.93l-1.41 1.41"/>
         </svg>
-        <svg class="theme-toggle-icon lamp" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--fg-dim)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg class="theme-toggle-icon lamp" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--fg)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
             <path d="M15 14c-1.5 0-2.5-.5-3-1l-3-4-3 4c-.5.5-1.5 1-3 1H9v-2c0-.5.5-1 1-1h4c.5 0 1 .5 1 1v8c0 .5-.5 1-1 1h-1"/>
             <path d="M9 12h6"/>
             <path d="M12 15v2"/>

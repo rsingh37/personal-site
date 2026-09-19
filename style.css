@@ -85,7 +85,12 @@ body {
 }
 
 /* ---- Light theme element overrides (flat selectors for browser compatibility) ---- */
-[data-theme="light"] .bg-grid { opacity: 0.12; }
+[data-theme="light"] .bg-grid { opacity: 0.10; }
+[data-theme="light"] .hero-eyebrow {
+    color: var(--warm);
+    border-color: var(--warm-dim);
+    background: var(--warm-dim);
+}
 [data-theme="light"] .hero-subtitle { color: var(--fg); }
 [data-theme="light"] .about-text { color: var(--fg); }
 [data-theme="light"] .blog-empty-text { color: var(--fg); }
@@ -155,10 +160,12 @@ body {
 [data-theme="light"] .terminal-preset:hover { background: var(--accent-glow); border-color: var(--accent); }
 [data-theme="light"] .terminal-bar { background: var(--bg-elev); border-bottom-color: var(--border-soft); }
 [data-theme="light"] .terminal-dots { gap: 6px; }
-[data-theme="light"] .t-dot { background: #b0b0b0; }
-[data-theme="light"] .theme-toggle { background: var(--bg-2); border-color: var(--border-soft); }
+[data-theme="light"] .t-dot { background: #9a9a9a; }
+[data-theme="light"] .theme-toggle { background: var(--bg-2); border-color: var(--border); }
 [data-theme="light"] .theme-toggle:hover { border-color: var(--accent); background: var(--bg-elev); }
 [data-theme="light"] .theme-toggle-icon { color: var(--fg-dim); }
+[data-theme="light"] .theme-toggle-icon.sun { stroke: var(--warm); }
+[data-theme="light"] .theme-toggle-icon.lamp { stroke: var(--fg-muted); }
 [data-theme="light"] .divider { padding: 48px 0; }
 [data-theme="light"] .divider-label { color: var(--fg-muted); }
 
@@ -330,12 +337,13 @@ header, main, footer {
     cursor: pointer;
     transition: all var(--transition);
     flex-shrink: 0;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.4);
 }
 
 .theme-toggle:hover {
     border-color: var(--accent);
     background: var(--bg-card);
-    box-shadow: 0 0 12px var(--accent-glow);
+    box-shadow: 0 0 16px var(--accent-glow);
 }
 
 .theme-toggle-icon {
@@ -350,7 +358,7 @@ header, main, footer {
 [data-theme="dark"] .theme-toggle-icon.lamp {
     opacity: 1;
     transform: scale(1);
-    stroke: var(--warm);
+    stroke: var(--fg);
 }
 
 [data-theme="light"] .theme-toggle-icon.sun {
@@ -360,7 +368,7 @@ header, main, footer {
 }
 
 [data-theme="light"] .theme-toggle-icon.lamp {
-    opacity: 0.15;
+    opacity: 0.12;
     transform: scale(0.5) rotate(4deg);
     stroke: var(--fg-muted);
 }
@@ -433,7 +441,11 @@ header, main, footer {
 }
 
 [data-theme="light"] .hero-name {
-    background: linear-gradient(135deg, var(--fg) 0%, var(--accent) 100%);
+    color: var(--fg);
+    background: none;
+    -webkit-text-fill-color: var(--fg);
+    -webkit-background-clip: unset;
+    background-clip: unset;
 }
 
 .hero-subtitle {

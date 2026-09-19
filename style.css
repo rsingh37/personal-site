@@ -71,7 +71,7 @@ body {
     --fg:        #111418;
     --fg-dim:    #5a6270;
     --fg-muted:  #7c8494;
-    --accent:    #0b81ff;
+    --accent:    #0055cc;  /* darker for light-mode contrast */
     --accent-dim: rgba(11, 129, 255, 0.08);
     --accent-glow: rgba(11, 129, 255, 0.12);
     --warm:      #e08a00;

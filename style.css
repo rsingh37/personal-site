@@ -115,7 +115,7 @@ body {
 [data-theme="light"] .connect-text { color: var(--fg); }
 [data-theme="light"] .connect-card { border-color: var(--border-soft); background: var(--bg-card); }
 [data-theme="light"] .connect-card:hover { border-color: var(--accent-dim); }
-[data-theme="light"] .connect-icon { background: var(--bg-elev); color: var(--fg); border-color: var(--border-soft); }
+[data-theme="light"] .connect-icon { background: var(--bg-elev); color: var(--accent); border-color: var(--border-soft); }
 [data-theme="light"] .connect-card:hover .connect-icon { background: var(--accent-dim); color: var(--accent); }
 [data-theme="light"] .card-body h3 { color: var(--fg); }
 [data-theme="light"] .card-body p { color: var(--fg-dim); }
@@ -139,8 +139,8 @@ body {
 [data-theme="light"] .fact-value { color: var(--fg); }
 [data-theme="light"] .fact-link { color: var(--accent); }
 [data-theme="light"] .fact-link:hover { color: var(--fg); }
-[data-theme="light"] .social-link { background: var(--bg-card); border-color: var(--border-soft); color: var(--fg); }
-[data-theme="light"] .social-link:hover { background: var(--accent-dim); border-color: var(--accent); color: var(--accent); }
+[data-theme="light"] .social-link { background: var(--bg-card); border-color: var(--border-soft); color: var(--accent); }
+[data-theme="light"] .social-link:hover { background: var(--warm-dim); border-color: var(--warm); color: var(--warm); }
 [data-theme="light"] .nav-logo { color: var(--fg); }
 [data-theme="light"] .nav-links a { color: var(--fg-dim); border-color: var(--border-soft); }
 [data-theme="light"] .nav-links a:hover { color: var(--fg); }
@@ -680,14 +680,19 @@ header, main, footer {
     border-radius: var(--radius-sm);
     background: var(--bg-card);
     border: 1px solid var(--border-soft);
-    color: var(--fg);
+    color: var(--accent);
     transition: all var(--transition);
 }
 
+.social-link svg {
+    fill: var(--accent);
+    stroke: var(--accent);
+}
+
 .social-link:hover {
-    color: var(--accent);
-    border-color: var(--accent);
-    background: var(--accent-dim);
+    color: var(--warm);
+    border-color: var(--warm);
+    background: var(--warm-dim);
     transform: translateY(-3px);
     box-shadow: var(--shadow-glow);
 }

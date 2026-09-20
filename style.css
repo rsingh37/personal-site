@@ -138,7 +138,7 @@ body {
 [data-theme="light"] .fact-label { color: var(--fg-muted); }
 [data-theme="light"] .fact-value { color: var(--fg); }
 [data-theme="light"] .fact-link { color: var(--accent); }
-[data-theme="light"] .fact-link:hover { color: var(--warm); }
+[data-theme="light"] .fact-link:hover { color: var(--fg); }
 [data-theme="light"] .social-link { background: var(--bg-card); border-color: var(--border-soft); color: var(--fg); }
 [data-theme="light"] .social-link:hover { background: var(--accent-dim); border-color: var(--accent); color: var(--accent); }
 [data-theme="light"] .nav-logo { color: var(--fg); }
@@ -198,6 +198,8 @@ a {
     transition: color var(--transition);
 }
 a:hover { color: var(--warm); }
+
+[data-theme="light"] a:hover { color: var(--fg); }
 
 /* ---- Container ---- */
 .container {
@@ -486,10 +488,9 @@ header, main, footer {
 .btn-primary:hover {
     background: var(--warm);
     border-color: var(--warm);
-    color: var(--hero-text);
+    color: var(--fg);
     transform: translateY(-2px);
     box-shadow: 0 6px 20px var(--warm-shadow);
-    color: var(--hero-text);
 }
 
 .btn-secondary {

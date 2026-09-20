@@ -161,11 +161,11 @@ body {
 [data-theme="light"] .terminal-bar { background: var(--bg-elev); border-bottom-color: var(--border-soft); }
 [data-theme="light"] .terminal-dots { gap: 6px; }
 [data-theme="light"] .t-dot { background: #9a9a9a; }
-[data-theme="light"] .theme-toggle { background: var(--bg-2); border-color: var(--border); }
-[data-theme="light"] .theme-toggle:hover { border-color: var(--accent); background: var(--bg-elev); }
-[data-theme="light"] .theme-toggle-icon { color: var(--fg-dim); }
+[data-theme="light"] .theme-toggle { background: var(--fg); border-color: var(--accent); box-shadow: 0 0 10px rgba(0, 102, 255, 0.3); }
+[data-theme="light"] .theme-toggle:hover { border-color: var(--accent); background: var(--bg-card); box-shadow: 0 0 16px var(--accent-glow); }
+[data-theme="light"] .theme-toggle-icon { color: var(--fg); }
 [data-theme="light"] .theme-toggle-icon.sun { stroke: var(--warm); }
-[data-theme="light"] .theme-toggle-icon.lamp { stroke: var(--fg-muted); }
+[data-theme="light"] .theme-toggle-icon.lamp { stroke: var(--fg-dim); opacity: 0.3; }
 [data-theme="light"] .divider { padding: 48px 0; }
 [data-theme="light"] .divider-label { color: var(--fg-muted); }
 
@@ -331,15 +331,14 @@ header, main, footer {
     justify-content: center;
     width: 44px;
     height: 44px;
-    border: 1px solid var(--border);
+    border: 1.5px solid var(--accent);
     border-radius: var(--radius-sm);
-    background: var(--bg-elev);
+    background: var(--bg-2);
     cursor: pointer;
     transition: all var(--transition);
     flex-shrink: 0;
     box-shadow: 0 0 8px rgba(0, 0, 0, 0.4);
 }
-
 .theme-toggle:hover {
     border-color: var(--accent);
     background: var(--bg-card);
@@ -443,9 +442,10 @@ header, main, footer {
 [data-theme="light"] .hero-name {
     color: var(--fg);
     background: none;
+    background-image: none;
     -webkit-text-fill-color: var(--fg);
-    -webkit-background-clip: unset;
-    background-clip: unset;
+    -webkit-background-clip: border-box;
+    background-clip: border-box;
 }
 
 .hero-subtitle {

@@ -115,7 +115,7 @@ body {
 [data-theme="light"] .connect-text { color: var(--fg); }
 [data-theme="light"] .connect-card { border-color: var(--border-soft); background: var(--bg-card); }
 [data-theme="light"] .connect-card:hover { border-color: var(--accent-dim); }
-[data-theme="light"] .connect-icon { background: var(--bg-elev); color: var(--fg-dim); border-color: var(--border-soft); }
+[data-theme="light"] .connect-icon { background: var(--bg-elev); color: var(--fg); border-color: var(--border-soft); }
 [data-theme="light"] .connect-card:hover .connect-icon { background: var(--accent-dim); color: var(--accent); }
 [data-theme="light"] .card-body h3 { color: var(--fg); }
 [data-theme="light"] .card-body p { color: var(--fg-dim); }
@@ -1157,7 +1157,7 @@ header, main, footer {
     justify-content: center;
     background: var(--bg-elev);
     border-radius: var(--radius-sm);
-    color: var(--fg-dim);
+    color: var(--fg);
     flex-shrink: 0;
     transition: all var(--transition);
 }

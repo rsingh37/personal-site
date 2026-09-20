@@ -139,7 +139,7 @@ body {
 [data-theme="light"] .fact-value { color: var(--fg); }
 [data-theme="light"] .fact-link { color: var(--accent); }
 [data-theme="light"] .fact-link:hover { color: var(--warm); }
-[data-theme="light"] .social-link { background: var(--bg-card); border-color: var(--border-soft); color: var(--fg-dim); }
+[data-theme="light"] .social-link { background: var(--bg-card); border-color: var(--border-soft); color: var(--fg); }
 [data-theme="light"] .social-link:hover { background: var(--accent-dim); border-color: var(--accent); color: var(--accent); }
 [data-theme="light"] .nav-logo { color: var(--fg); }
 [data-theme="light"] .nav-links a { color: var(--fg-dim); border-color: var(--border-soft); }
@@ -679,7 +679,7 @@ header, main, footer {
     border-radius: var(--radius-sm);
     background: var(--bg-card);
     border: 1px solid var(--border-soft);
-    color: var(--fg-dim);
+    color: var(--fg);
     transition: all var(--transition);
 }
 

@@ -675,8 +675,8 @@ header, main, footer {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 42px;
-    height: 42px;
+    width: 48px;
+    height: 48px;
     border-radius: var(--radius-sm);
     background: var(--bg-card);
     border: 1px solid var(--border-soft);
@@ -1156,16 +1156,21 @@ header, main, footer {
 }
 
 .connect-icon {
-    width: 40px;
-    height: 40px;
+    width: 46px;
+    height: 46px;
     display: flex;
     align-items: center;
     justify-content: center;
     background: var(--bg-elev);
     border-radius: var(--radius-sm);
-    color: var(--fg);
+    color: var(--accent);
     flex-shrink: 0;
     transition: all var(--transition);
+}
+
+.connect-icon svg {
+    fill: var(--accent);
+    stroke: var(--accent);
 }
 
 .connect-card:hover .connect-icon {
